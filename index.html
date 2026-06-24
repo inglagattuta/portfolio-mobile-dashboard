@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10201f" />
+    <title>Portafoglio Mobile</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="locked">
+    <section class="unlock-screen" id="unlockScreen" aria-label="Accesso dashboard">
+      <form class="unlock-panel" id="unlockForm">
+        <p class="eyebrow">Accesso riservato</p>
+        <h1>Portafoglio</h1>
+        <label for="unlockCode">Codice</label>
+        <input id="unlockCode" name="unlockCode" type="password" inputmode="numeric" autocomplete="current-password" required />
+        <button type="submit">Sblocca</button>
+        <p class="unlock-error" id="unlockError" role="alert"></p>
+      </form>
+    </section>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Snapshot aggregato</p>
+          <h1>Portafoglio</h1>
+        </div>
+        <div class="score-pill">
+          <span id="scoreValue">--</span>
+          <small>score</small>
+        </div>
+      </header>
+
+      <section class="hero-grid" aria-label="Sintesi portafoglio">
+        <article class="metric primary">
+          <span>Valore</span>
+          <strong id="totalValue">--</strong>
+          <small id="lastUpdate">Aggiornamento --</small>
+        </article>
+        <article class="metric">
+          <span>Risultato</span>
+          <strong id="totalPnl">--</strong>
+          <small id="totalPnlPct">--</small>
+        </article>
+        <article class="metric">
+          <span>Dividendi mese</span>
+          <strong id="monthlyIncome">--</strong>
+          <small id="incomeDetail">--</small>
+        </article>
+        <article class="metric">
+          <span>Posizioni</span>
+          <strong id="positionsCount">--</strong>
+          <small>solo conteggio</small>
+        </article>
+      </section>
+
+      <nav class="tabs" aria-label="Sezioni">
+        <button class="tab active" data-view="overview">Sintesi</button>
+        <button class="tab" data-view="blocks">Blocchi</button>
+        <button class="tab" data-view="income">Dividendi</button>
+        <button class="tab" data-view="risk">Rischio</button>
+      </nav>
+
+      <section class="view active" id="overview">
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>Andamento indicizzato</h2>
+            <span id="returnLabel">--</span>
+          </div>
+          <canvas id="performanceChart" width="720" height="360"></canvas>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>Alert aggregati</h2>
+            <span id="alertCount">--</span>
+          </div>
+          <div class="alert-list" id="alertList"></div>
+        </div>
+      </section>
+
+      <section class="view" id="blocks">
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>Allocazione</h2>
+            <span>Peso vs target</span>
+          </div>
+          <div class="block-list" id="blockList"></div>
+        </div>
+      </section>
+
+      <section class="view" id="income">
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>Dividendi</h2>
+            <span id="annualIncome">--</span>
+          </div>
+          <div class="income-strip">
+            <span id="actualYtd">--</span>
+            <span id="futureIncome">--</span>
+            <span id="yieldValue">--</span>
+          </div>
+          <canvas id="incomeChart" width="720" height="360"></canvas>
+        </div>
+      </section>
+
+      <section class="view" id="risk">
+        <div class="panel">
+          <div class="panel-heading">
+            <h2>Drawdown</h2>
+            <span id="drawdownLabel">--</span>
+          </div>
+          <canvas id="drawdownChart" width="720" height="360"></canvas>
+        </div>
+        <div class="privacy-note">
+          Snapshot pubblico: non contiene workbook, movimenti, screenshot, log o lista completa titoli.
+        </div>
+      </section>
+    </main>
+
+    <script src="encrypted_snapshot.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

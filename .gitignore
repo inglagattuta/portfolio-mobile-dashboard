@@ -1,0 +1,10 @@
+*.xlsx
+*.xls
+*.csv
+*.log
+portfolio_snapshot.json
+snapshot.js
+__pycache__/
+.DS_Store
+Thumbs.db
+desktop.ini
