@@ -26,10 +26,18 @@ if errorlevel 1 (
 )
 
 echo.
-set /p PORTFOLIO_DASHBOARD_CODE=Codice dashboard: 
+if not exist ".dashboard_code" (
+    echo.
+    echo ERRORE: file .dashboard_code mancante.
+    echo Crea il file .dashboard_code in questa cartella con il codice della dashboard.
+    pause
+    exit /b 1
+)
+
+set /p PORTFOLIO_DASHBOARD_CODE=<.dashboard_code
 if "%PORTFOLIO_DASHBOARD_CODE%"=="" (
     echo.
-    echo ERRORE: codice mancante.
+    echo ERRORE: .dashboard_code vuoto.
     pause
     exit /b 1
 )

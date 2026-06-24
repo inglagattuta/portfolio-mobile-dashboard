@@ -4,6 +4,7 @@
 *.log
 portfolio_snapshot.json
 snapshot.js
+.dashboard_code
 __pycache__/
 .DS_Store
 Thumbs.db
