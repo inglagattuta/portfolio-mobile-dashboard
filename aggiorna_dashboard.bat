@@ -2,13 +2,22 @@
 setlocal
 
 cd /d "%~dp0"
+set "PYTHON_EXE=C:\Users\franc\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
 
 echo =========================================
 echo  Aggiornamento Portafoglio Mobile
 echo =========================================
 echo.
 
-py -3 tools\export_mobile_snapshot.py
+if not exist "%PYTHON_EXE%" (
+    echo ERRORE: Python non trovato:
+    echo %PYTHON_EXE%
+    echo.
+    pause
+    exit /b 1
+)
+
+"%PYTHON_EXE%" tools\export_mobile_snapshot.py
 if errorlevel 1 (
     echo.
     echo ERRORE: generazione snapshot non riuscita.
@@ -16,8 +25,6 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo.
-echo Snapshot aggiornato.
 echo.
 set /p PORTFOLIO_DASHBOARD_CODE=Codice dashboard: 
 if "%PORTFOLIO_DASHBOARD_CODE%"=="" (
@@ -37,16 +44,16 @@ if errorlevel 1 (
 )
 set PORTFOLIO_DASHBOARD_CODE=
 
+del /q portfolio_snapshot.json snapshot.js 2>nul
+
 git rev-parse --is-inside-work-tree >nul 2>&1
 if errorlevel 1 (
     echo.
-    echo Questa cartella non e ancora collegata a GitHub.
-    echo Quando creeremo il repository, questo file potra fare anche commit e push.
+    echo ERRORE: questa cartella non e un repository Git.
     pause
-    exit /b 0
+    exit /b 1
 )
 
-git status --short
 git add encrypted_snapshot.json encrypted_snapshot.js
 git diff --cached --quiet
 if not errorlevel 1 (
@@ -73,5 +80,5 @@ if errorlevel 1 (
 )
 
 echo.
-echo Dashboard aggiornata e inviata a GitHub.
+echo Dashboard aggiornata e inviata a GitHub Pages.
 pause
